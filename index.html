@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Grok Live | إبداعك الحي</title>
+    <style>/* CSS المُقدّم من المستخدم */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* إضافة تحسينات أساسية لتجنب انهيار التخطيط */
+        body {
+            min-height: 100vh;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>EGYSTAR MOVIES | Premium Streaming Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --red: #e50914;
+      --red-glow: #ff1a1a;
+      --dark: #0a0a0f;
+      --card: #14141c;
+      --text: #f0f0f0;
+      --gold: #c8a45c;
+      --sidebar-w: 340px;
+      --navbar-h: 56px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Cairo', sans-serif;
+      background: #000;
+      color: var(--text);
+      height: 100vh; width: 100vw;
+      overflow: hidden;
+      direction: ltr;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============ SPLASH ============ */
+    #splash-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #000; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; transition: opacity 0.7s, visibility 0.7s; cursor: pointer;
+    }
+    #splash-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    #splash-canvas { position: absolute; inset: 0; z-index: 0; }
+    .splash-logo {
+      font-family: 'Aref Ruqaa', 'Reem Kufi', serif;
+      font-size: clamp(3rem, 8vw, 6rem); font-weight: 700;
+      color: #fff; text-shadow: 0 0 60px rgba(229,9,20,0.9), 0 0 120px rgba(229,9,20,0.5);
+      animation: splashPulse 1.8s infinite; position: relative; z-index: 1;
+      background: linear-gradient(180deg, #fff 0%, #ffcccc 40%, #e50914 70%, #8b0000 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; filter: drop-shadow(0 0 30px rgba(229,9,20,0.8));
+    }
+    .splash-sub { font-size: 1.1rem; color: #ccc; letter-spacing: 3px; margin-top: 0.5rem; z-index: 1; }
+    @keyframes splashPulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.04); } }
+
+    /* ============ LOGIN ============ */
+    #login-screen {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+    #login-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .login-container {
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(30px);
+      border: 1px solid rgba(229,9,20,0.25); border-radius: 2rem;
+      padding: 2.5rem 2rem; width: 92%; max-width: 430px;
+      box-shadow: 0 30px 70px rgba(229,9,20,0.2); text-align: center;
+      max-height: 95vh; overflow-y: auto;
+    }
+    .login-logo { font-family: 'Aref Ruqaa', serif; font-size: 3.5rem; color: var(--red); text-shadow: 0 0 30px rgba(229,9,20,0.7); }
+    
+    .warning-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      padding: 0.6rem 1rem; border-radius: 1rem;
+      margin-bottom: 1rem; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: transform 0.2s;
+    }
+    .warning-badge:hover { transform: scale(1.02); }
+    .warning-badge i { font-size: 1rem; animation: warningPulse 1.5s infinite; }
+    @keyframes warningPulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+    
+    .agreements { 
+      background: rgba(255,255,255,0.03); border-radius: 1rem; padding: 1rem; 
+      margin: 1.3rem 0; text-align: left; max-height: 220px; overflow-y: auto;
+      border: 1px solid rgba(229,9,20,0.15);
+    }
+    .checkbox-item { 
+      display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.8rem; 
+      font-size: 0.85rem; cursor: pointer; line-height: 1.4;
+    }
+    .checkbox-item input[type="checkbox"] { margin-top: 0.15rem; cursor: pointer; accent-color: var(--red); }
+    .colored-link { color: var(--red); font-weight: 700; text-decoration: underline; cursor: pointer; transition: color 0.2s; }
+    .colored-link:hover { color: #ff4444; }
+    .btn { 
+      background: linear-gradient(135deg, var(--red), #b00710); color: #fff; border: none; 
+      padding: 0.9rem; border-radius: 1.5rem; font-weight: 700; cursor: pointer; 
+      width: 100%; margin: 0.4rem 0; font-size: 1rem; transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(229,9,20,0.4);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(229,9,20,0.5); }
+    .btn-outline { 
+      background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #bbb;
+      box-shadow: none;
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    /* ============ MAIN SCREEN ============ */
+    #main-screen { display: none; height: 100vh; width: 100vw; flex-direction: column; background: #0c0c0f; }
+    #main-screen.active { display: flex; }
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 1.2rem; height: var(--navbar-h);
+      background: rgba(0,0,0,0.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(229,9,20,0.2); z-index: 50; flex-shrink: 0;
+    }
+    .nav-logo { font-family: 'Aref Ruqaa', serif; font-size: 1.8rem; color: var(--red); }
+    .nav-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .nav-profile img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--red); }
+    .nav-profile span { font-weight: 600; font-size: 0.9rem; }
+    .hamburger { background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; padding: 0.5rem; }
+    .control-btns { display: flex; gap: 6px; }
+    .ctrl-btn {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+      color: #ccc; padding: 0.4rem 0.7rem; border-radius: 0.5rem; cursor: pointer;
+      font-size: 0.8rem; display: flex; align-items: center; gap: 4px; transition: all 0.2s;
+    }
+    .ctrl-btn:hover { background: rgba(229,9,20,0.2); border-color: var(--red); color: #fff; }
+    .webview-wrapper { flex: 1; position: relative; background: #000; overflow: hidden; }
+    .webview-inner { width: 100%; height: 100%; transition: transform 0.4s, width 0.4s, height 0.4s; position: relative; }
+    .webview-inner.cover { width: 110%; height: 110%; margin: -5%; }
+    .webview-inner.rotated { transform: rotate(90deg); width: 100vh; height: 100vw; position: absolute; }
+    iframe { width: 100%; height: 100%; border: none; background: #000; }
+    .fallback-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.92);
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff; text-align: center; z-index: 10;
+    }
+    .fallback-overlay.show { display: flex; }
+    .fallback-btn { 
+      background: var(--red); color: #fff; border: none; padding: 0.8rem 1.5rem; 
+      border-radius: 2rem; cursor: pointer; margin-top: 1rem; font-weight: 700; 
+      transition: all 0.2s;
+    }
+    .fallback-btn:hover { background: #ff1a1a; transform: scale(1.05); }
+    .fallback-btn.secondary { background: #333; margin-top: 0.5rem; }
+    .fallback-btn.secondary:hover { background: #555; }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar-overlay { 
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); 
+      backdrop-filter: blur(4px); z-index: 80; display: none; opacity: 0; transition: opacity 0.3s;
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+    .sidebar {
+      position: fixed; top: 0; right: 0; height: 100vh; width: var(--sidebar-w); max-width: 90vw;
+      background: linear-gradient(180deg, #0d0d14 0%, #0a0a12 100%); 
+      box-shadow: -10px 0 40px rgba(0,0,0,0.95); z-index: 90;
+      transform: translateX(105%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column; border-left: 1px solid rgba(229,9,20,0.3);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-scroll { flex: 1; overflow-y: auto; padding: 0; }
+    .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+    .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--red); border-radius: 4px; }
+    
+    .sidebar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.5rem; color: var(--red); font-weight: 700;
+      font-size: 1.2rem; border-bottom: 1px solid rgba(229,9,20,0.2);
+      background: rgba(229,9,20,0.05);
+    }
+    .close-sidebar { background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; padding: 0; line-height: 1; }
+    
+    /* Category Headers */
+    .sidebar-category {
+      padding: 1rem 1.5rem 0.6rem; font-size: 0.95rem; 
+      color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; 
+      font-weight: 800; font-family: 'Cairo', sans-serif;
+      background: linear-gradient(90deg, rgba(200,164,92,0.15) 0%, transparent 100%);
+      border-left: 3px solid var(--gold);
+      margin: 0.5rem 0 0.3rem;
+    }
+    
+    /* Platform Grid */
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem;
+      padding: 0.8rem 1rem 1rem;
+    }
+    .platform-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.8rem; padding: 0.6rem 0.4rem; text-align: center;
+      cursor: pointer; transition: all 0.25s; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .platform-card:hover {
+      background: rgba(229,9,20,0.12); border-color: rgba(229,9,20,0.4);
+      transform: translateY(-2px); box-shadow: 0 4px 15px rgba(229,9,20,0.2);
+    }
+    .platform-card:active { transform: scale(0.96); }
+    .platform-card .favicon {
+      width: 36px; height: 36px; border-radius: 8px; object-fit: contain;
+      margin-bottom: 0.4rem; background: rgba(255,255,255,0.05); padding: 4px;
+    }
+    .platform-card .name {
+      font-size: 0.72rem; color: #ddd; font-weight: 500; line-height: 1.2;
+      max-height: 2.4em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .platform-card .badge {
+      position: absolute; top: 4px; right: 4px;
+      font-size: 0.6rem; padding: 2px 5px; border-radius: 4px;
+      font-weight: 700;
+    }
+    .badge-internal { background: #10b981; color: #fff; }
+    .badge-external { background: #f59e0b; color: #000; }
+    
+    /* Menu Items */
+    .sidebar-menu { list-style: none; padding: 0 0.5rem; }
+    .sidebar-menu li {
+      display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem;
+      cursor: pointer; transition: 0.2s; font-size: 0.9rem; color: #ccc;
+      border-right: 3px solid transparent; border-radius: 0 0.5rem 0.5rem 0;
+      font-family: 'Inter', sans-serif;
+    }
+    .sidebar-menu li:hover { 
+      background: rgba(229,9,20,0.1); color: #fff; 
+      border-right-color: var(--red); 
+    }
+    .sidebar-menu li i { width: 20px; text-align: center; color: var(--red); }
+    
+    /* Social Links Section */
+    .social-section {
+      padding: 1rem 1rem; border-top: 1px solid rgba(229,9,20,0.2);
+      background: rgba(0,0,0,0.3);
+    }
+    .social-title {
+      text-align: center; color: var(--gold); font-size: 0.85rem;
+      font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 1px;
+    }
+    .social-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+    }
+    .social-btn {
+      aspect-ratio: 1; border-radius: 1rem; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; cursor: pointer;
+      transition: all 0.25s; border: 1px solid rgba(255,255,255,0.1);
+      position: relative; overflow: hidden;
+    }
+    .social-btn::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.15;
+      background: inherit; z-index: 0;
+    }
+    .social-btn i { font-size: 1.4rem; position: relative; z-index: 1; margin-bottom: 2px; }
+    .social-btn span { font-size: 0.55rem; position: relative; z-index: 1; font-weight: 600; text-align: center; }
+    .social-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+    
+    .social-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); color: #fff; }
+    .social-telegram { background: linear-gradient(135deg, #0088cc, #005f9e); color: #fff; }
+    .social-facebook { background: linear-gradient(135deg, #1877F2, #0d65d9); color: #fff; }
+    .social-instagram { background: linear-gradient(135deg, #E1306C, #C13584, #833AB4, #FD1D1D); color: #fff; }
+    .social-threads { background: linear-gradient(135deg, #000, #333); color: #fff; }
+    .social-x { background: linear-gradient(135deg, #000, #14171A); color: #fff; }
+    .social-pubg { background: linear-gradient(135deg, #F2A900, #E68A00); color: #000; }
+    .social-pinterest { background: linear-gradient(135deg, #BD081C, #A00718); color: #fff; }
+    .social-kick { background: linear-gradient(135deg, #53FC18, #2eb82e); color: #000; }
+    .social-tiktok { background: linear-gradient(135deg, #000, #25F4EE, #FE2C55); color: #fff; }
+    
+    .sidebar-footer { 
+      padding: 0.8rem 1rem; font-size: 0.6rem; color: #666; 
+      border-top: 1px solid rgba(255,255,255,0.06); text-align: center;
+      background: rgba(0,0,0,0.5);
+    }
+
+    /* ============ MODALS ============ */
+    .modal-overlay { 
+      display: none; position: fixed; inset: 0; 
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); 
+      z-index: 200; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .modal-overlay.show { display: flex; opacity: 1; }
+    .modal-box { 
+      background: linear-gradient(180deg, #1a1a24 0%, #0f0f16 100%); 
+      border: 1px solid rgba(229,9,20,0.4); border-radius: 1.5rem; 
+      padding: 2rem; max-width: 580px; width: 94%; max-height: 85vh; 
+      overflow-y: auto; color: #ccc; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    .modal-box::-webkit-scrollbar { width: 6px; }
+    .modal-box::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
+    .modal-box::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+    .modal-box h2 { 
+      color: var(--red); margin-bottom: 1.2rem; font-size: 1.5rem;
+      font-family: 'Cairo', sans-serif; border-bottom: 2px solid rgba(229,9,20,0.3);
+      padding-bottom: 0.8rem;
+    }
+    .modal-close-btn { 
+      position: sticky; top: 0; float: right; background: rgba(229,9,20,0.2); 
+      border: none; color: #fff; font-size: 1.6rem; cursor: pointer;
+      width: 36px; height: 36px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; transition: all 0.2s;
+      z-index: 10;
+    }
+    .modal-close-btn:hover { background: var(--red); transform: rotate(90deg); }
+    
+    .modal-box p, .modal-box li { line-height: 1.8; margin-bottom: 0.8rem; font-size: 0.92rem; }
+    .modal-box ul { padding-right: 1.2rem; }
+    .modal-box strong { color: #fff; }
+    .modal-box a { color: var(--red); text-decoration: none; }
+    .modal-box a:hover { text-decoration: underline; }
+
+    /* Contact Modal */
+    .contact-profile {
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .contact-profile-img {
+      width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--red); box-shadow: 0 0 30px rgba(229,9,20,0.5);
+      margin-bottom: 1rem;
+    }
+    .contact-name {
+      font-family: 'Aref Ruqaa', serif; font-size: 2rem;
+      color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .contact-role {
+      font-size: 1rem; color: var(--red); font-weight: 600;
+    }
+    .contact-bio {
+      font-family: 'Aref Ruqaa', serif; font-size: 0.95rem;
+      line-height: 1.9; color: #bbb; text-align: justify;
+      padding: 1rem; background: rgba(255,255,255,0.03);
+      border-radius: 1rem; border: 1px solid rgba(229,9,20,0.15);
+    }
+
+    /* Settings Modal */
+    .settings-group { margin-bottom: 1.5rem; }
+    .settings-label { 
+      font-size: 0.85rem; color: #888; margin-bottom: 0.5rem; 
+      font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .settings-select, .settings-input {
+      width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 0.8rem;
+      color: #fff; font-size: 0.95rem; cursor: pointer;
+    }
+    .settings-select:focus, .settings-input:focus {
+      outline: none; border-color: var(--red);
+    }
+    .toggle-switch {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.8rem; background: rgba(255,255,255,0.04);
+      border-radius: 0.8rem; margin-bottom: 0.5rem;
+    }
+    .toggle-switch span { font-size: 0.9rem; }
+    .toggle-input {
+      width: 48px; height: 26px; appearance: none; background: #333;
+      border-radius: 13px; position: relative; cursor: pointer; transition: 0.3s;
+    }
+    .toggle-input::before {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 20px; height: 20px; background: #fff; border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle-input:checked { background: var(--red); }
+    .toggle-input:checked::before { left: 25px; }
+
+    /* Warning Modal */
+    .warning-modal .modal-box { max-width: 500px; }
+    .warning-content {
+      background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 1rem; padding: 1.2rem; margin: 1rem 0;
+    }
+    .warning-content h3 { color: #ff6b35; margin-bottom: 0.8rem; font-size: 1.1rem; }
+    .warning-content ol { padding-right: 1.2rem; }
+    .warning-content li { margin-bottom: 0.6rem; font-size: 0.88rem; }
+    .dns-code {
+      background: #000; padding: 0.6rem 1rem; border-radius: 0.5rem;
+      font-family: monospace; color: #10b981; margin: 0.3rem 0;
+      display: inline-block;
+    }
+    .download-link {
+      color: #10b981; font-weight: 700; cursor: pointer; text-decoration: underline;
+    }
+
+    @media (max-width: 500px) {
+      .login-container { padding: 1.5rem 1rem; }
+      .sidebar { width: 92vw; }
+      .platform-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .platform-card .favicon { width: 32px; height: 32px; }
+      .platform-card .name { font-size: 0.68rem; }
+      .social-grid { grid-template-columns: repeat(4, 1fr); }
+      .modal-box { padding: 1.5rem; max-height: 88vh; }
+    }
+  </style>
+</head>
+<body>
+  <!-- SPLASH -->
+  <div id="splash-screen">
+    <canvas id="splash-canvas"></canvas>
+    <div class="splash-logo">EGYSTAR</div>
+    <div class="splash-sub" data-i18n="splash.sub">MOVIES</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login-screen" class="hidden">
+    <div class="login-container">
+      <div class="login-logo">EGYSTAR</div>
+      <div data-i18n="login.subtitle" style="color:#999; margin-bottom:1rem;">Premium Streaming Hub</div>
+      
+      <!-- Warning Badge -->
+      <div class="warning-badge" id="warning-badge" onclick="openModal('modal-warning')">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span data-i18n="warning.title">⚠️ Important Notice About External Content</span>
+      </div>
+      
+      <input type="text" id="username" placeholder="Username" style="width:100%; padding:0.9rem; background:rgba(40,40,55,0.6); border:1px solid rgba(255,255,255,0.12); border-radius:1rem; color:#fff; margin-bottom:0.8rem;">
+      <input type="password" id="password" placeholder="Password" style="width:100%; padding:0.9rem; background:rgba(40,40,55,0.6); border:1px solid rgba(255,255,255,0.12); border-radius:1rem; color:#fff; margin-bottom:1rem;">
+      
+      <div class="agreements" id="agreements-box">
+        <div class="checkbox-item"><input type="checkbox" id="agree-terms"><label data-i18n="agree.terms">I agree to <span class="colored-link" data-modal="modal-terms">Terms of Service</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-privacy"><label data-i18n="agree.privacy">I agree to <span class="colored-link" data-modal="modal-privacy">Privacy Policy</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-disclaimer"><label data-i18n="agree.disclaimer">I acknowledge <span class="colored-link" data-modal="modal-disclaimer">Full Disclaimer</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-cookies"><label data-i18n="agree.cookies">I accept <span class="colored-link" data-modal="modal-cookies">Cookie Policy</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-age"><label data-i18n="agree.age">I am <span class="colored-link" data-modal="modal-age">18+ years old</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-dmca"><label data-i18n="agree.dmca">I understand <span class="colored-link" data-modal="modal-dmca">DMCA Policy</span></label></div>
+        <div class="checkbox-item"><input type="checkbox" id="agree-third"><label data-i18n="agree.third">I accept <span class="colored-link" data-modal="modal-third">Third-Party Content Policy</span></label></div>
+      </div>
+      
+      <button class="btn" id="login-btn" data-i18n="login.btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+      <button class="btn btn-outline" id="accept-all-btn" data-i18n="login.accept">Accept All & Continue ✓</button>
+      <p class="error-message" id="login-error" style="color:#ff4d4d; display:none; margin-top:0.8rem; font-size:0.85rem;"></p>
+    </div>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div id="main-screen">
+    <div class="navbar">
+      <button class="hamburger" id="menu-toggle"><i class="fas fa-bars"></i></button>
+      <div class="nav-logo">EGYSTAR</div>
+      <div class="nav-profile" id="profile-btn">
+        <img id="nav-profile-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e50914'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Profile">
+        <span id="profile-name" data-i18n="profile.guest">Guest</span>
+      </div>
+      <div class="control-btns">
+        <button class="ctrl-btn" id="btn-fit"><i class="fas fa-arrows-alt"></i> <span data-i18n="ctrl.fit">Fit</span></button>
+        <button class="ctrl-btn" id="btn-rotate"><i class="fas fa-sync-alt"></i> <span data-i18n="ctrl.rotate">Rotate</span></button>
+        <button class="ctrl-btn" id="btn-fullscreen"><i class="fas fa-expand"></i> <span data-i18n="ctrl.full">Full</span></button>
+      </div>
+    </div>
+    <div class="webview-wrapper" id="webview-wrapper">
+      <div class="webview-inner" id="webview-inner">
+        <iframe id="content-frame" style="display:none;" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation" referrerpolicy="no-referrer"></iframe>
+        <div class="fallback-overlay" id="fallback-overlay">
+          <i class="fas fa-exclamation-circle" style="font-size:3rem; color:var(--red); margin-bottom:1rem;"></i>
+          <h3 data-i18n="fallback.text" style="margin-bottom:0.5rem;">This site cannot be displayed here</h3>
+          <p style="color:#999; font-size:0.85rem; margin-bottom:1.5rem;" data-i18n="fallback.subtext">Some sites block embedding. Open externally instead.</p>
+          <button class="fallback-btn" id="fallback-open-btn" data-i18n="fallback.btn"><i class="fas fa-external-link-alt"></i> Open in New Tab</button>
+          <button class="fallback-btn secondary" id="fallback-close-btn" data-i18n="fallback.close"><i class="fas fa-times"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span data-i18n="sidebar.menu">Menu</span>
+      <button class="close-sidebar" id="close-sidebar">&times;</button>
+    </div>
+    <div class="sidebar-scroll">
+      <!-- WebView Compatible -->
+      <div class="sidebar-category" data-i18n="cat.webview">🌐 WebView Compatible Platforms</div>
+      <div class="platform-grid" id="webview-platforms"></div>
+      
+      <!-- Movies & Shows -->
+      <div class="sidebar-category" data-i18n="cat.movies">🎬 Movies & Shows</div>
+      <div class="platform-grid" id="movies-list"></div>
+      
+      <!-- Anime -->
+      <div class="sidebar-category" data-i18n="cat.anime">🎌 Anime Streaming</div>
+      <div class="platform-grid" id="anime-list"></div>
+      
+      <!-- Manga -->
+      <div class="sidebar-category" data-i18n="cat.manga">📚 Manga & Comics</div>
+      <div class="platform-grid" id="manga-list"></div>
+      
+      <!-- Live TV -->
+      <div class="sidebar-category" data-i18n="cat.livetv">📺 Live TV & Sports</div>
+      <div class="platform-grid" id="livetv-list"></div>
+      
+      <!-- Paid Services -->
+      <div class="sidebar-category" data-i18n="cat.paid">💰 Premium Services</div>
+      <div class="platform-grid" id="paid-list"></div>
+      
+      <!-- Apps -->
+      <div class="sidebar-category" data-i18n="cat.apps">📱 Apps & APKs</div>
+      <div class="platform-grid" id="apps-list"></div>
+      
+      <hr style="border-color:rgba(229,9,20,0.2); margin: 0.8rem 1rem;">
+      
+      <!-- Menu Items -->
+      <ul class="sidebar-menu">
+        <li id="menu-profile"><i class="fas fa-user-circle"></i> <span data-i18n="menu.profile">Edit Profile</span></li>
+        <li id="menu-settings"><i class="fas fa-cog"></i> <span data-i18n="menu.settings">Settings</span></li>
+        <li id="menu-contact"><i class="fas fa-phone-alt"></i> <span data-i18n="menu.contact">Contact Us</span></li>
+        <li id="menu-lang"><i class="fas fa-language"></i> <span data-i18n="menu.lang">العربية</span></li>
+        <li id="menu-warning"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="menu.warning">Safety Guide</span></li>
+        <li id="menu-terms"><i class="fas fa-file-contract"></i> <span data-i18n="menu.terms">Terms of Service</span></li>
+        <li id="menu-privacy"><i class="fas fa-shield-alt"></i> <span data-i18n="menu.privacy">Privacy Policy</span></li>
+        <li id="menu-disclaimer"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="menu.disclaimer">Disclaimer</span></li>
+        <li id="menu-dmca"><i class="fas fa-copyright"></i> <span data-i18n="menu.dmca">DMCA Policy</span></li>
+        <li id="logout-btn-menu" style="color:var(--red);"><i class="fas fa-sign-out-alt"></i> <span data-i18n="menu.logout">Logout</span></li>
+      </ul>
+      
+      <!-- Social Links -->
+      <div class="social-section">
+        <div class="social-title" data-i18n="social.title">📱 Connect With Us</div>
+        <div class="social-grid" id="social-links-grid"></div>
+      </div>
+      
+      <div class="sidebar-footer" data-i18n="footer">© 2026 EGYSTAR · All Rights Reserved</div>
+    </div>
+  </div>
+
+  <!-- MODALS -->
+  
+  <!-- Terms of Service Modal -->
+  <div class="modal-overlay" id="modal-terms">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-terms')">&times;</button>
+      <h2 data-i18n="modal.terms.title">Terms of Service</h2>
+      <p><strong data-i18n="terms.lastUpdated">Last Updated:</strong> January 15, 2026</p>
+      <p data-i18n="terms.intro">Welcome to EGYSTAR MOVIES ("Platform," "we," "us," or "our"). By accessing or using our platform, you agree to be bound by these Terms of Service ("Terms"). Please read them carefully before using our services.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">1. <span data-i18n="terms.s1">Acceptance of Terms</span></h3>
+      <p data-i18n="terms.s1t">By creating an account, logging in, or using any features of EGYSTAR MOVIES, you acknowledge that you have read, understood, and agree to be bound by these Terms, our Privacy Policy, and all applicable laws and regulations. If you do not agree with any part of these terms, you must not use our services.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">2. <span data-i18n="terms.s2">Description of Service</span></h3>
+      <p data-i18n="terms.s2t">EGYSTAR MOVIES is a web-based interface platform that aggregates links to third-party streaming websites, applications, and services ("External Services"). We do not host, store, upload, or distribute any media content, including but not limited to movies, TV shows, anime, manga, or live broadcasts. All content is provided solely by external third-party sources over which we have no control.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">3. <span data-i18n="terms.s3">User Accounts & Authentication</span></h3>
+      <p data-i18n="terms.s3t">To access certain features of the Platform, you may be required to create an account or authenticate using provided credentials. You are responsible for maintaining the confidentiality of your login information and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account.</p>
+      <ul>
+        <li data-i18n="terms.s3l1">You must provide accurate and complete registration information</li>
+        <li data-i18n="terms.s3l2">You must be at least 18 years of age or have parental consent</li>
+        <li data-i18n="terms.s3l3">You are responsible for securing your account credentials</li>
+        <li data-i18n="terms.s3l4">One account per person is permitted unless otherwise authorized</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">4. <span data-i18n="terms.s4">Acceptable Use Policy</span></h3>
+      <p data-i18n="terms.s4t">You agree NOT to use the Platform to:</p>
+      <ul>
+        <li data-i18n="terms.s4l1">Violate any applicable local, state, national, or international law</li>
+        <li data-i18n="terms.s4l2">Transmit any material that is harmful, obscene, defamatory, or invasive of privacy</li>
+        <li data-i18n="terms.s4l3">Attempt to gain unauthorized access to other users' accounts or our systems</li>
+        <li data-i18n="terms.s4l4">Use automated scripts, bots, or scrapers to access the Platform</li>
+        <li data-i18n="terms.s4l5">Interfere with or disrupt the integrity or performance of the Platform</li>
+        <li data-i18n="terms.s4l6">Reverse engineer, decompile, or disassemble any part of the Platform</li>
+        <li data-i18n="terms.s4l7">Use the Platform for any commercial purpose without written authorization</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">5. <span data-i18n="terms.s5">Third-Party Content & External Links</span></h3>
+      <p data-i18n="terms.s5t">The Platform contains links to external websites and services that are not under our control. We are not responsible for the content, accuracy, legality, or practices of these external sites. Your interaction with external sites is governed by their terms and policies. We strongly advise you to review the terms and privacy policies of any external site you visit through our Platform.</p>
+      <p><strong data-i18n="terms.s5w">Warning:</strong> <span data-i18n="terms.s5wt">Some external sites may display advertisements, pop-ups, or content that may be considered inappropriate. We recommend using ad blockers and following our Safety Guide for optimal browsing experience.</span></p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">6. <span data-i18n="terms.s6">Intellectual Property</span></h3>
+      <p data-i18n="terms.s6t">The Platform's design, code, interface, and original content are protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or create derivative works from any part of the Platform without our express written permission. All trademarks, service marks, and trade names belonging to third parties remain the property of their respective owners.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">7. <span data-i18n="terms.s7">Disclaimer of Warranties</span></h3>
+      <p data-i18n="terms.s7t">THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT:</p>
+      <ul>
+        <li data-i18n="terms.s7l1">The Platform will be uninterrupted, timely, secure, or error-free</li>
+        <li data-i18n="terms.s7l2">The results obtained from using the Platform will be accurate or reliable</li>
+        <li data-i18n="terms.s7l3">Any errors in the Platform will be corrected</li>
+        <li data-i18n="terms.s7l4">External links will function properly or lead to safe destinations</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">8. <span data-i18n="terms.s8">Limitation of Liability</span></h3>
+      <p data-i18n="terms.s8t">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EGYSTAR MOVIES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE THE PLATFORM, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">9. <span data-i18n="terms.s9">Indemnification</span></h3>
+      <p data-i18n="terms.s9t">You agree to indemnify, defend, and hold harmless EGYSTAR MOVIES, its operators, affiliates, and contributors from any claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from your use of the Platform, your violation of these Terms, or your infringement of any third-party rights.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">10. <span data-i18n="terms.s10">Termination</span></h3>
+      <p data-i18n="terms.s10t">We reserve the right to suspend or terminate your access to the Platform at any time, with or without cause, with or without notice. Upon termination, your right to use the Platform immediately ceases. Provisions of these Terms that by their nature should survive termination shall continue in effect.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">11. <span data-i18n="terms.s11">Governing Law</span></h3>
+      <p data-i18n="terms.s11t">These Terms shall be governed by and construed in accordance with applicable international laws, without regard to conflict of law principles. Any disputes arising from these Terms shall be resolved through binding arbitration.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">12. <span data-i18n="terms.s12">Changes to Terms</span></h3>
+      <p data-i18n="terms.s12t">We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the Platform after changes constitutes acceptance of the modified Terms. We encourage you to review these Terms periodically.</p>
+      
+      <p style="margin-top:1.5rem; padding:1rem; background:rgba(229,9,20,0.1); border-radius:0.8rem; font-size:0.88rem;"><strong data-i18n="terms.contact">Questions?</strong> <span data-i18n="terms.contactT">If you have questions about these Terms, please contact us through the "Contact Us" option in the menu.</span></p>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div class="modal-overlay" id="modal-privacy">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-privacy')">&times;</button>
+      <h2 data-i18n="modal.privacy.title">Privacy Policy</h2>
+      <p><strong data-i18n="privacy.lastUpdated">Last Updated:</strong> January 15, 2026</p>
+      <p data-i18n="privacy.intro">At EGYSTAR MOVIES ("we," "us," or "our"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our platform or use our services.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">1. <span data-i18n="privacy.s1">Information We Collect</span></h3>
+      <p data-i18n="privacy.s1t"><strong>Personal Information:</strong> When you create an account or use certain features, we may collect:</p>
+      <ul>
+        <li data-i18n="privacy.s1l1">Display name or username you choose for your profile</li>
+        <li data-i18n="privacy.s1l2">Profile picture (stored locally on your device only)</li>
+        <li data-i18n="privacy.s1l3">Language preferences</li>
+        <li data-i18n="privacy.s1l4">Interface settings and customization choices</li>
+      </ul>
+      <p data-i18n="privacy.s1ta"><strong>Automatically Collected Information:</strong> When you access our platform, we may automatically collect certain technical information, including browser type, device type, operating system, screen resolution, and usage patterns. This information is collected through cookies and similar technologies where applicable.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">2. <span data-i18n="privacy.s2">How We Use Your Information</span></h3>
+      <p data-i18n="privacy.s2t">We use the information we collect to:</p>
+      <ul>
+        <li data-i18n="privacy.s2l1">Provide, maintain, and improve our Platform and services</li>
+        <li data-i18n="privacy.s2l2">Personalize your experience, including language and display preferences</li>
+        <li data-i18n="privacy.s2l3">Remember your settings across sessions using local storage</li>
+        <li data-i18n="privacy.s2l4">Respond to your comments, questions, and requests</li>
+        <li data-i18n="privacy.s2l5">Monitor and analyze usage patterns to enhance user experience</li>
+        <li data-i18n="privacy.s2l6">Detect, prevent, and address technical issues or abuse</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">3. <span data-i18n="privacy.s3">Information Sharing & Disclosure</span></h3>
+      <p data-i18n="privacy.s3t"><strong>We DO NOT sell, trade, rent, or otherwise share your personal information with third parties for marketing purposes.</strong></p>
+      <p data-i18n="privacy.s3ta">We may share information in the following limited circumstances:</p>
+      <ul>
+        <li data-i18n="privacy.s3l1"><strong>With External Sites:</strong> When you click on external links, those sites may collect information according to their own policies</li>
+        <li data-i18n="privacy.s3l2"><strong>Legal Requirements:</strong> If required by law, court order, or governmental authority</li>
+        <li data-i18n="privacy.s3l3"><strong>Rights Protection:</strong> To protect our rights, property, or safety, or that of our users</li>
+        <li data-i18n="privacy.s3l4"><strong>Business Transfer:</strong> In connection with merger, acquisition, or sale of assets</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">4. <span data-i18n="privacy.s4">Data Storage & Security</span></h3>
+      <p data-i18n="privacy.s4t"><strong>Local Storage Only:</strong> All your personal data, including login credentials, profile information, and preferences, is stored exclusively on your local device using localStorage. We do not transmit your personal data to any external servers or databases maintained by us.</p>
+      <p data-i18n="privacy.s4ta"><strong>Security Measures:</strong> While no method of electronic storage is 100% secure, we implement reasonable technical and organizational measures to protect your locally stored data, including encryption of sensitive information where possible.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">5. <span data-i18n="privacy.s5">Cookies & Tracking Technologies</span></h3>
+      <p data-i18n="privacy.s5t"><strong>Our Cookie Policy:</strong> EGYSTAR MOVIES itself does not use tracking cookies or similar technologies to track your browsing behavior across different websites. We only use essential session management through localStorage.</p>
+      <p data-i18n="privacy.s5ta"><strong>Third-Party Cookies:</strong> External websites accessed through our Platform may set their own cookies and use tracking technologies. We have no control over these third-party cookies and recommend reviewing each site's cookie policy. You can manage cookie settings in your browser preferences.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">6. <span data-i18n="privacy.s6">Your Rights & Choices</span></h3>
+      <p data-i18n="privacy.s6t">You have the following rights regarding your personal information:</p>
+      <ul>
+        <li data-i18n="privacy.s6l1"><strong>Access:</strong> You can view all data stored locally through your browser's developer tools</li>
+        <li data-i18n="privacy.s6l2"><strong>Correction:</strong> You can update your profile information anytime through Settings</li>
+        <li data-i18n="privacy.s6l3"><strong>Deletion:</strong> You can delete all your data by clearing browser data or using the logout feature</li>
+        <li data-i18n="privacy.s6l4"><strong>Opt-Out:</strong> You can disable certain features in Settings if available</li>
+        <li data-i18n="privacy.s6l5"><strong>Data Portability:</strong> Your data is already stored locally and accessible to you</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">7. <span data-i18n="privacy.s7">Children's Privacy</span></h3>
+      <p data-i18n="privacy.s7t">Our Platform is not intended for children under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected personal data from a child without parental consent, we will take steps to delete that information promptly. By using this Platform, you confirm that you are at least 18 years old or have parental/guardian consent.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">8. <span data-i18n="privacy.s8">International Users</span></h3>
+      <p data-i18n="privacy.s8t">If you are accessing our Platform from outside your country of residence, please be aware that your information may be transferred to, stored, and processed in your local device regardless of your location. By using our Platform, you consent to this local processing.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">9. <span data-i18n="privacy.s9">Changes to This Policy</span></h3>
+      <p data-i18n="privacy.s9t">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;">10. <span data-i18n="privacy.s10">Contact Us</span></h3>
+      <p data-i18n="privacy.s10t">If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us through the "Contact Us" option in the main menu. We will respond to your inquiry within a reasonable timeframe.</p>
+      
+      <p style="margin-top:1.5rem; padding:1rem; background:rgba(229,9,20,0.1); border-radius:0.8rem; font-size:0.88rem;"><strong data-i18n="privacy.note">Note:</strong> <span data-i18n="privacy.noteT">By using EGYSTAR MOVIES, you acknowledge that you have read and understood this Privacy Policy.</span></p>
+    </div>
+  </div>
+
+  <!-- Disclaimer Modal -->
+  <div class="modal-overlay" id="modal-disclaimer">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-disclaimer')">&times;</button>
+      <h2 data-i18n="modal.disclaimer.title">Full Disclaimer</h2>
+      <div style="background:rgba(255,170,0,0.1); border:1px solid rgba(255,170,0,0.3); border-radius:1rem; padding:1.2rem; margin:1rem 0;">
+        <p style="color:#ffaa00; font-weight:700; font-size:1rem;" data-i18n="disclaimer.warning">⚠️ IMPORTANT DISCLAIMER - PLEASE READ CAREFULLY ⚠️</p>
+      </div>
+      <p data-i18n="disclaimer.p1">EGYSTAR MOVIES ("the Platform") is a web-based aggregation interface that provides organized links to third-party streaming websites, applications, and online services. It is crucial that all users understand the nature of this Platform and the limitations of our responsibility.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h1">No Content Hosting</h3>
+      <p data-i18n="disclaimer.p2">EGYSTAR MOVIES does NOT host, store, cache, upload, distribute, or broadcast any media content whatsoever. This includes but is not limited to:</p>
+      <ul>
+        <li data-i18n="disclaimer.l1">Movies, films, and cinematic content of any kind</li>
+        <li data-i18n="disclaimer.l2">Television series, shows, and episodic content</li>
+        <li data-i18n="disclaimer.l3">Anime, cartoons, and animated programming</li>
+        <li data-i18n="disclaimer.l4">Manga, comics, and graphic novels</li>
+        <li data-i18n="disclaimer.l5">Live television broadcasts and sports events</li>
+        <li data-i18n="disclaimer.l6">Music, audio files, or podcasts</li>
+        <li data-i18n="disclaimer.l7">Any other form of copyrighted or proprietary media</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h2">Third-Party Nature of Content</h3>
+      <p data-i18n="disclaimer.p3">All content accessible through links on this Platform is hosted, controlled, and operated entirely by independent third-party entities. EGYSTAR MOVIES has absolutely NO control over:</p>
+      <ul>
+        <li data-i18n="disclaimer.l8">The availability, quality, or completeness of external content</li>
+        <li data-i18n="disclaimer.l9">The accuracy, legality, or appropriateness of external content</li>
+        <li data-i18n="disclaimer.l10">Advertisements, pop-ups, or redirects on external sites</li>
+        <li data-i18n="disclaimer.l11">Security measures or data collection practices of external sites</li>
+        <li data-i18n="disclaimer.l12">Changes to external content or website functionality</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h3">No Endorsement or Affiliation</h3>
+      <p data-i18n="disclaimer.p4">The inclusion of links to external websites does NOT imply endorsement, affiliation, sponsorship, or partnership with those entities. We do not verify, validate, or approve the content, services, or practices of linked websites. Any perceived endorsement is purely coincidental and unintentional.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h4">User Responsibility</h3>
+      <p data-i18n="disclaimer.p5">By using EGYSTAR MOVIES, you acknowledge and accept full responsibility for:</p>
+      <ul>
+        <li data-i18n="disclaimer.l13">Verifying the legality of accessing content in your jurisdiction</li>
+        <li data-i18n="disclaimer.l14">Complying with all applicable local, national, and international laws</li>
+        <li data-i18n="disclaimer.l15">Protecting your device from malware, viruses, or malicious content</li>
+        <li data-i18n="disclaimer.l16">Managing your own privacy and data security when visiting external sites</li>
+        <li data-i18n="disclaimer.l17">Any consequences resulting from your use of external services</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h5">No Warranty or Guarantee</h3>
+      <p data-i18n="disclaimer.p6">EGYSTAR MOVIES provides NO warranties, guarantees, or representations of any kind regarding:</p>
+      <ul>
+        <li data-i18n="disclaimer.l18">The functionality or accessibility of linked websites</li>
+        <li data-i18n="disclaimer.l19">The safety, security, or legitimacy of external content</li>
+        <li data-i18n="disclaimer.l20">The absence of inappropriate, offensive, or harmful material on external sites</li>
+        <li data-i18n="disclaimer.l21">The protection of your personal information when interacting with external services</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h6">Limitation of Liability</h3>
+      <p data-i18n="disclaimer.p7">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EGYSTAR MOVIES, ITS OPERATORS, CREATORS, AFFILIATES, EMPLOYEES, AGENTS, AND SUCCESSORS SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES ARISING FROM OR RELATED TO:</p>
+      <ul>
+        <li data-i18n="disclaimer.l22">Your inability to access any external website or content</li>
+        <li data-i18n="disclaimer.l23">Any damage to your device, software, or data</li>
+        <li data-i18n="disclaimer.l24">Exposure to inappropriate, offensive, or illegal content</li>
+        <li data-i18n="disclaimer.l25">Violation of your privacy or unauthorized data collection</li>
+        <li data-i18n="disclaimer.l26">Any legal actions taken against you based on your activities</li>
+        <li data-i18n="disclaimer.l27">Any other loss, harm, or inconvenience whatsoever</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="disclaimer.h7">Copyright & Intellectual Property</h3>
+      <p data-i18n="disclaimer.p8">EGYSTAR MOVIES respects intellectual property rights. We do not claim ownership of any content hosted on external websites. All copyrights, trademarks, patents, and other intellectual property rights belong to their respective owners. If you believe your rights have been infringed, please contact the appropriate external website operator directly, as outlined in our DMCA Policy.</p>
+      
+      <p style="margin-top:1.5rem; padding:1rem; background:rgba(229,9,20,0.15); border-radius:0.8rem; font-size:0.9rem; color:#ffcccc;"><strong data-i18n="disclaimer.final">FINAL ACKNOWLEDGMENT:</strong> <span data-i18n="disclaimer.finalT">By using EGYSTAR MOVIES, you explicitly acknowledge that you have read, understood, and accepted all terms of this Disclaimer. You understand that you are using this Platform at your sole risk and that EGYSTAR MOVIES assumes absolutely no liability for any consequences arising from your use of this service or any external services accessed through it.</span></p>
+    </div>
+  </div>
+
+  <!-- Cookie Policy Modal -->
+  <div class="modal-overlay" id="modal-cookies">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-cookies')">&times;</button>
+      <h2 data-i18n="modal.cookies.title">Cookie Policy</h2>
+      <p data-i18n="cookies.intro">This Cookie Policy explains how EGYSTAR MOVIES uses cookies and similar technologies when you visit our platform. Please read this policy carefully to understand our practices regarding your personal information.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h1">What Are Cookies?</h3>
+      <p data-i18n="cookies.p1">Cookies are small text files that are stored on your device (computer, tablet, or mobile) when you visit a website. They help the website remember information about your visit, which can make it easier to visit the site again and make the site more useful to you.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h2">Our Cookie Usage</h3>
+      <p data-i18n="cookies.p2"><strong>EGYSTAR MOVIES' Own Cookies:</strong> Our platform itself does NOT use traditional HTTP cookies for tracking purposes. Instead, we utilize browser localStorage technology to store essential user preferences and session information locally on your device. This includes:</p>
+      <ul>
+        <li data-i18n="cookies.l1">Authentication status (whether you are logged in)</li>
+        <li data-i18n="cookies.l2">Language preference (English or Arabic)</li>
+        <li data-i18n="cookies.l3">Display name and profile picture</li>
+        <li data-i18n="cookies.l4">Interface customization settings</li>
+        <li data-i18n="cookies.l5">User agreement acceptance status</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h3">Third-Party Cookies</h3>
+      <p data-i18n="cookies.p3">When you access external websites through our Platform's links, those external sites MAY set their own cookies and use various tracking technologies. EGYSTAR MOVIES has NO control over third-party cookies and cannot prevent external sites from setting them. Common types of third-party cookies include:</p>
+      <ul>
+        <li data-i18n="cookies.l6"><strong>Analytics Cookies:</strong> Used by external sites to track visitor behavior</li>
+        <li data-i18n="cookies.l7"><strong>Advertising Cookies:</strong> Used to serve targeted advertisements</li>
+        <li data-i18n="cookies.l8"><strong>Social Media Cookies:</strong> Set when sharing content to social platforms</li>
+        <li data-i18n="cookies.l9"><strong>Functional Cookies:</strong> Remember settings on external sites</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h4">Managing Cookies</h3>
+      <p data-i18n="cookies.p4">You can control and manage cookies in several ways:</p>
+      <ul>
+        <li data-i18n="cookies.l10"><strong>Browser Settings:</strong> Most browsers allow you to refuse or accept cookies, delete existing cookies, and set preferences for different types of cookies</li>
+        <li data-i18n="cookies.l11"><strong>Ad Blockers:</strong> Using browser extensions like uBlock Origin or Brave Browser's built-in blocking can prevent many tracking cookies</li>
+        <li data-i18n="cookies.l12"><strong>Private Browsing:</strong> Using private/incognito mode can limit persistent cookies</li>
+        <li data-i18n="cookies.l13"><strong>DNS Settings:</strong> Configuring DNS filtering (like AdGuard DNS) can block tracking domains at network level</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h5">Recommendations</h3>
+      <p data-i18n="cookies.p5">For the safest and most private browsing experience when using external streaming sites, we strongly recommend:</p>
+      <ul>
+        <li data-i18n="cookies.l14">Using Brave Browser or Firefox with enhanced tracking protection</li>
+        <li data-i18n="cookies.l15">Installing uBlock Origin extension for comprehensive ad and tracker blocking</li>
+        <li data-i18n="cookies.l16">Configuring DNS to AdGuard (94.140.14.14 / 94.140.15.15) for network-level filtering</li>
+        <li data-i18n="cookies.l17">Regularly clearing browser cookies and cache</li>
+        <li data-i18n="cookies.l18">Being cautious about clicking on suspicious links or pop-ups</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="cookies.h6">Your Consent</h3>
+      <p data-i18n="cookies.p6">By continuing to use EGYSTAR MOVIES after being presented with this Cookie Policy, you consent to our use of localStorage for essential functions as described above. For third-party cookies, please refer to each external site's individual cookie policy.</p>
+      
+      <p style="margin-top:1.2rem; font-size:0.88rem; color:#aaa;" data-i18n="cookies.update">This policy was last updated on January 15, 2026 and may be updated periodically.</p>
+    </div>
+  </div>
+
+  <!-- Age Confirmation Modal -->
+  <div class="modal-overlay" id="modal-age">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-age')">&times;</button>
+      <h2 data-i18n="modal.age.title">Age Verification</h2>
+      <div style="text-align:center; padding:1.5rem 0;">
+        <i class="fas fa-id-card" style="font-size:4rem; color:var(--gold); margin-bottom:1rem;"></i>
+        <p style="font-size:1.1rem; margin-bottom:1rem;" data-i18n="age.p1">You must confirm that you meet the minimum age requirement to use EGYSTAR MOVIES.</p>
+        <div style="background:rgba(229,9,20,0.1); border:1px solid rgba(229,9,20,0.3); border-radius:1rem; padding:1.2rem; margin:1rem 0;">
+          <p style="font-size:1.3rem; font-weight:700; color:var(--red);" data-i18n="age.requirement">Minimum Age Requirement: 18+ Years Old</p>
+        </div>
+        <p style="font-size:0.95rem; color:#bbb;" data-i18n="age.p2">By checking the age confirmation checkbox during registration, you legally affirm that you are at least 18 years of age or older. If you are under 18, you must have explicit parental or guardian consent to use this Platform.</p>
+        <p style="font-size:0.9rem; color:#888; margin-top:1rem;" data-i18n="age.p3">False representation of age is a violation of our Terms of Service and may result in immediate termination of your access to the Platform.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DMCA Policy Modal -->
+  <div class="modal-overlay" id="modal-dmca">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-dmca')">&times;</button>
+      <h2 data-i18n="modal.dmca.title">DMCA & Copyright Policy</h2>
+      <p data-i18n="dmca.intro">EGYSTAR MOVIES respects the intellectual property rights of others and expects its users to do the same. This DMCA (Digital Millennium Copyright Act) Policy outlines our procedures for handling claims of copyright infringement.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="dmca.h1">Important Clarification</h3>
+      <p data-i18n="dmca.p1"><strong>EGYSTAR MOVIES does not host any content.</strong> We are a link directory/aggregation platform that provides organized access to third-party websites. We do not store, upload, stream, or distribute any copyrighted material. All content is hosted on external servers operated by independent third parties over whom we have no control.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="dmca.h2">Reporting Copyright Infringement</h3>
+      <p data-i18n="dmca.p2">If you believe that your copyrighted work has been infringed upon through a link on our Platform, please note that we cannot remove the infringing content directly because it is not hosted on our servers. However, we can remove the link to the infringing content from our Platform upon receiving a valid notice.</p>
+      <p data-i18n="dmca.p3"><strong>To file a DMCA takedown request, please contact the hosting provider of the specific website where the infringing content is located.</strong> For your convenience, we recommend also contacting us so we can remove the link from our directory.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="dmca.h3">Required Information for DMCA Notice</h3>
+      <p data-i18n="dmca.p4">Your DMCA notice must include the following information:</p>
+      <ul>
+        <li data-i18n="dmca.l1">Your physical or electronic signature</li>
+        <li data-i18n="dmca.l2">Identification of the copyrighted work claimed to have been infringed</li>
+        <li data-i18n="dmca.l3">Identification of the material that is claimed to be infringing</li>
+        <li data-i18n="dmca.l4">Your contact information (address, phone number, email)</li>
+        <li data-i18n="dmca.l5">A statement that you have a good faith belief that the use is not authorized</li>
+        <li data-i18n="dmca.l6">A statement that the information in the notification is accurate, under penalty of perjury</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="dmca.h4">Counter-Notification Procedure</h3>
+      <p data-i18n="dmca.p5">If you believe that content was removed or disabled as a result of mistake or misidentification, you may send a counter-notification containing:</p>
+      <ul>
+        <li data-i18n="dmca.l7">Your physical or electronic signature</li>
+        <li data-i18n="dmca.l8">Identification of the removed content and its previous location</li>
+        <li data-i18n="dmca.l9">A statement under penalty of perjury that you believe the removal was mistaken</li>
+        <li data-i18n="dmca.l10">Your consent to federal district court jurisdiction</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="dmca.h5">Repeat Infringer Policy</h3>
+      <p data-i18n="dmca.p6">In accordance with the DMCA, EGYSTAR MOVIES maintains a policy for terminating, in appropriate circumstances, users who are repeatedly charged with infringing copyrights. We reserve the right to suspend or ban users who repeatedly engage in copyright-infringing activities through our Platform.</p>
+      
+      <p style="margin-top:1.2rem; padding:1rem; background:rgba(229,9,20,0.1); border-radius:0.8rem; font-size:0.88rem;"><strong data-i18n="dmca.contact">For DMCA inquiries:</strong> <span data-i18n="dmca.contactT">Please use the "Contact Us" feature in the main menu. We take all copyright claims seriously and will respond appropriately within a reasonable timeframe.</span></p>
+    </div>
+  </div>
+
+  <!-- Third-Party Content Modal -->
+  <div class="modal-overlay" id="modal-third">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-third')">&times;</button>
+      <h2 data-i18n="modal.third.title">Third-Party Content Policy</h2>
+      <p data-i18n="third.intro">This Third-Party Content Policy explains the relationship between EGYSTAR MOVIES and the external websites, services, and content accessible through our Platform.</p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="third.h1">Nature of Third-Party Content</h3>
+      <p data-i18n="third.p1">EGYSTAR MOVIES serves as a directory and navigation hub for external websites. The content, functionality, and services offered by these external websites are entirely beyond our control. We do not:</p>
+      <ul>
+        <li data-i18n="third.l1">Create, edit, curate, or moderate third-party content</li>
+        <li data-i18n="third.l2">Have any ownership interest in external websites or their content</li>
+        <li data-i18n="third.l3">Exercise editorial control over external content</li>
+        <li data-i18n="third.l4">Verify the accuracy, completeness, or legality of external content</li>
+        <li data-i18n="third.l5">Endorse or approve of external content or practices</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="third.h2">User Acknowledgment</h3>
+      <p data-i18n="third.p2">By using EGYSTAR MOVIES, you expressly acknowledge and agree that:</p>
+      <ul>
+        <li data-i18n="third.l6">All content accessed through our links originates from third-party sources</li>
+        <li data-i18n="third.l7">We are not responsible for any loss, damage, or harm arising from third-party content</li>
+        <li data-i18n="third.l8">External sites operate under their own terms, conditions, and privacy policies</li>
+        <li data-i18n="third.l9">We have no ability to remove, modify, or correct third-party content</li>
+        <li data-i18n="third.l10">Your interactions with external sites are solely between you and those site operators</li>
+      </ul>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="third.h3">Potential Risks</h3>
+      <p data-i18n="third.p3">Users should be aware that third-party websites may present certain risks, including but not limited to:</p>
+      <ul>
+        <li data-i18n="third.l11">Exposure to inappropriate, offensive, or adult-oriented content</li>
+        <li data-i18n="third.l12">Malicious advertisements, pop-ups, or redirect schemes</li>
+        <li data-i18n="third.l13">Malware, viruses, or other security threats</li>
+        <li data-i18n="third.l14">Phishing attempts or fraudulent activities</li>
+        <li data-i18n="third.l15">Data collection practices that may compromise privacy</li>
+        <li data-i18n="third.l16">Content that may be illegal in certain jurisdictions</li>
+      </ul>
+      <p data-i18n="third.p4"><strong>We strongly recommend following our Safety Guide and using protective tools like ad blockers and secure DNS settings to mitigate these risks.</strong></p>
+      
+      <h3 style="color:var(--gold); margin:1.2rem 0 0.6rem; font-size:1.1rem;" data-i18n="third.h4">No Liability</h3>
+      <p data-i18n="third.p5">EGYSTAR MOVIES shall not be held liable for any damages, losses, or harms resulting from your access to or use of any third-party content, services, or websites linked from our Platform. Your use of third-party content is entirely at your own risk.</p>
+    </div>
+  </div>
+
+  <!-- Warning/Safety Guide Modal -->
+  <div class="modal-overlay modal-warning" id="modal-warning">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-warning')">&times;</button>
+      <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="fas fa-shield-alt" style="color:#ff6b35;"></i> <span data-i18n="modal.warning.title">Safety Guide & Content Warning</span></h2>
+      
+      <div class="warning-content">
+        <h3><i class="fas fa-exclamation-triangle"></i> <span data-i18n="warning.notice">⚠️ Important Notice About External Content</span></h3>
+        <p data-i18n="warning.p1">Some platforms listed on EGYSTAR MOVIES may display content that could be considered inappropriate, including but not limited to:</p>
+        <ul style="margin:0.5rem 0 0.5rem 1.2rem;">
+          <li data-i18n="warning.w1">Pop-up advertisements (including adult-oriented ads)</li>
+          <li data-i18n="warning.w2">Redirect pages to unexpected websites</li>
+          <li data-i18n="warning.w3">Misleading download buttons</li>
+          <li data-i18n="warning.w4">Adult content or explicit material</li>
+          <li data-i18n="warning.w5">Potentially unsafe or scam content</li>
+        </ul>
+        
+        <p style="margin-top:1rem; font-weight:700; color:#fff;" data-i18n="warning.instructions">📋 Follow These Instructions to Stay Safe:</p>
+        <ol>
+          <li data-i18n="warning.step1"><strong>Use a Secure Browser:</strong> We recommend using <span class="download-link" onclick="window.open('https://brave.com/download/','_blank')">Brave Browser</span> which has built-in ad blocking and privacy protection, or install <span class="download-link" onclick="window.open('https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm','_blank')">uBlock Origin</span> extension to completely block ads and pop-ups.</li>
+          
+          <li data-i18n="warning.step2"><strong>Configure DNS Settings:</strong> Enter your device's WiFi/network settings and change DNS addresses to the following for network-level ad and tracker blocking:</li>
+          <li style="list-style:none; padding:0.5rem 0;">
+            <div><strong>DNS1:</strong> <span class="dns-code">94.140.14.14</span></div>
+            <div><strong>DNS2:</strong> <span class="dns-code">94.140.15.15</span></div>
+            <div style="font-size:0.82rem; color:#888; margin-top:0.3rem;" data-i18n="warning.dnsnote">(These are AdGuard DNS servers - you can also configure them in your router settings for whole-network protection)</div>
+          </li>
+          
+          <li data-i18n="warning.step3"><strong>Be Cautious:</strong> Never enter personal information on unfamiliar sites. Avoid clicking on suspicious "Download" or "Play" buttons that seem out of place.</li>
+          
+          <li data-i18n="warning.step4"><strong>Keep Software Updated:</strong> Ensure your browser and operating system are up to date with the latest security patches.</li>
+        </ol>
+        
+        <p style="margin-top:1rem; padding:0.8rem; background:rgba(16,185,129,0.15); border-radius:0.8rem; font-size:0.9rem;"><i class="fas fa-headset" style="color:#10b981;"></i> <strong data-i18n="warning.support">Need Help?</strong> <span data-i18n="warning.supportT">Contact us via any of the social media channels listed at the bottom of the main menu for assistance.</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div class="modal-overlay" id="modal-profile">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-profile')">&times;</button>
+      <h2 data-i18n="profile.title">Edit Profile</h2>
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="position:relative; display:inline-block;">
+          <img id="profile-preview-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e50914'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Profile" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--red);">
+          <label for="profile-image-upload" style="position:absolute; bottom:0; right:0; background:var(--red); color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.9rem; border:2px solid #fff;">
+            <i class="fas fa-camera"></i>
+          </label>
+          <input type="file" id="profile-image-upload" accept="image/*" style="display:none;">
+        </div>
+      </div>
+      <input type="text" id="profile-input" placeholder="Display Name" style="width:100%; padding:0.8rem; background:#222; border:1px solid #444; color:#fff; border-radius:0.8rem; margin:1rem 0; font-size:1rem;">
+      <button class="btn" id="save-profile-btn" data-i18n="profile.save"><i class="fas fa-save"></i> Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-settings')">&times;</button>
+      <h2><i class="fas fa-cog"></i> <span data-i18n="settings.title">Settings</span></h2>
+      
+      <div class="settings-group">
+        <div class="settings-label" data-i18n="settings.language">Language / اللغة</div>
+        <select class="settings-select" id="setting-language">
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-label" data-i18n="settings.appearance">Appearance</div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.darkMode">Dark Mode</span>
+          <input type="checkbox" class="toggle-input" id="setting-darkmode" checked disabled>
+        </div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.animations">Animations</span>
+          <input type="checkbox" class="toggle-input" id="setting-animations" checked>
+        </div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.haptic">Haptic Feedback</span>
+          <input type="checkbox" class="toggle-input" id="setting-haptic">
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-label" data-i18n="settings.webview">WebView Behavior</div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.autoOpen">Auto-open in WebView</span>
+          <input type="checkbox" class="toggle-input" id="setting-autowebview" checked>
+        </div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.fallback">Show fallback for blocked sites</span>
+          <input type="checkbox" class="toggle-input" id="setting-fallback" checked>
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-label" data-i18n="settings.privacy">Privacy</div>
+        <div class="toggle-switch">
+          <span data-i18n="settings.rememberLogin">Remember Login</span>
+          <input type="checkbox" class="toggle-input" id="setting-remember" checked>
+        </div>
+        <button class="btn btn-outline" id="clear-data-btn" style="margin-top:0.5rem;" data-i18n="settings.clearData"><i class="fas fa-trash"></i> Clear All Local Data</button>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-label" data-i18n="settings.about">About</div>
+        <p style="font-size:0.88rem; color:#888;">EGYSTAR MOVIES v2.0.0<br>© 2026 All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Modal -->
+  <div class="modal-overlay" id="modal-contact">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('modal-contact')">&times;</button>
+      <h2><i class="fas fa-phone-alt"></i> <span data-i18n="contact.title">Contact Us</span></h2>
+      
+      <div class="contact-profile">
+        <img src="https://i.postimg.cc/rFN9RnWp/20260209-194311.jpg" alt="Yousef M.Rashad" class="contact-profile-img" onerror="this.src='https://postimg.cc/kBDSkyTr'">
+        <div class="contact-name">Yousef M.Rashad</div>
+        <div class="contact-role">Platform Designer & Developer</div>
+      </div>
+      
+      <div class="contact-bio" data-i18n="contact.bio">
+        مرحباً! أنا يوسف محمد رشاد، مصمم ومنصِّب منصة EGYSTAR MOVIES. شغوف بتطوير الويب وتجربة المستخدم منذ عدة سنوات. أسعى دائماً لتقديم أفضل الحلول التقنية التي تجمع بين الجمال والسهولة في الاستخدام. أؤمن بأن التقنية يجب أن تكون في متناول الجميع، وهذا ما دفعني لإنشاء هذه المنصة التي تجمع بين العديد من مصادر المحتوى في مكان واحد منظّم وسهل الاستخدام. أعمل باستمرار على تحسين المنصة وإضافة مميزات جديدة بناءً على ملاحظات المستخدمين. لا تتردد في التواصل معي لأي استفسارات أو اقتراحات أو حتى للتعاون!
+      </div>
+      
+      <div style="margin-top:1.5rem;">
+        <div class="settings-label" data-i18n="contact.channels">Direct Contact Channels</div>
+        <div class="social-grid" id="contact-social-grid" style="grid-template-columns: repeat(5, 1fr);"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---- i18n ----
+      const i18n = {
+        en: {
+          "splash.sub": "MOVIES",
+          "login.subtitle": "Premium Streaming Hub",
+          "warning.title": "⚠️ Important Notice About External Content",
+          "agree.terms": "I agree to <span class='colored-link' data-modal='modal-terms'>Terms of Service</span>",
+          "agree.privacy": "I agree to <span class='colored-link' data-modal='modal-privacy'>Privacy Policy</span>",
+          "agree.disclaimer": "I acknowledge <span class='colored-link' data-modal='modal-disclaimer'>Full Disclaimer</span>",
+          "agree.cookies": "I accept <span class='colored-link' data-modal='modal-cookies'>Cookie Policy</span>",
+          "agree.age": "I am <span class='colored-link' data-modal='modal-age'>18+ years old</span>",
+          "agree.dmca": "I understand <span class='colored-link' data-modal='modal-dmca'>DMCA Policy</span>",
+          "agree.third": "I accept <span class='colored-link' data-modal='modal-third'>Third-Party Content Policy</span>",
+          "login.btn": "Sign In",
+          "login.accept": "Accept All & Continue ✓",
+          "profile.guest": "Guest",
+          "ctrl.fit": "Fit",
+          "ctrl.rotate": "Rotate",
+          "ctrl.full": "Full",
+          "fallback.text": "This site cannot be displayed here",
+          "fallback.subtext": "Some sites block embedding. Open externally instead.",
+          "fallback.btn": "Open in New Tab",
+          "fallback.close": "Close",
+          "sidebar.menu": "Menu",
+          "cat.webview": "🌐 WebView Compatible Platforms",
+          "cat.movies": "🎬 Movies & Shows",
+          "cat.anime": "🎌 Anime Streaming",
+          "cat.manga": "📚 Manga & Comics",
+          "cat.livetv": "📺 Live TV & Sports",
+          "cat.paid": "💰 Premium Services",
+          "cat.apps": "📱 Apps & APKs",
+          "menu.profile": "Edit Profile",
+          "menu.settings": "Settings",
+          "menu.contact": "Contact Us",
+          "menu.lang": "العربية",
+          "menu.warning": "Safety Guide",
+          "menu.terms": "Terms of Service",
+          "menu.privacy": "Privacy Policy",
+          "menu.disclaimer": "Disclaimer",
+          "menu.dmca": "DMCA Policy",
+          "menu.logout": "Logout",
+          "footer": "© 2026 EGYSTAR · All Rights Reserved",
+          "profile.title": "Edit Profile",
+          "profile.save": "Save Changes",
+          "social.title": "📱 Connect With Us",
+          "badge.internal": "IN",
+          "badge.external": "EX"
+        },
+        ar: {
+          "splash.sub": "أفلام",
+          "login.subtitle": "منصة البث الفاخرة",
+          "warning.title": "⚠️ تنبيه هام بشأن المحتوى الخارجي",
+          "agree.terms": "أوافق على <span class='colored-link' data-modal='modal-terms'>شروط الاستخدام</span>",
+          "agree.privacy": "أوافق على <span class='colored-link' data-modal='modal-privacy'>سياسة الخصوصية</span>",
+          "agree.disclaimer": "أقر بـ <span class='colored-link' data-modal='modal-disclaimer'>إخلاء المسؤولية الكامل</span>",
+          "agree.cookies": "أوافق على <span class='colored-link' data-modal='modal-cookies'>سياسة الكوكيز</span>",
+          "agree.age": "أؤكد أن عمري <span class='colored-link' data-modal='modal-age'>18+ سنة</span>",
+          "agree.dmca": "أفهم <span class='colored-link' data-modal='modal-dmca'>سياسة DMCA</span>",
+          "agree.third": "أوافق على <span class='colored-link' data-modal='modal-third'>سياسة محتوى الطرف الثالث</span>",
+          "login.btn": "تسجيل الدخول",
+          "login.accept": "الموافقة على الكل والمتابعة ✓",
+          "profile.guest": "زائر",
+          "ctrl.fit": "تناسق",
+          "ctrl.rotate": "تدوير",
+          "ctrl.full": "كامل",
+          "fallback.text": "لا يمكن عرض هذا الموقع هنا",
+          "fallback.subtext": "بعض المواقع تمنع التضمين. افتحه خارجياً بدلاً من ذلك.",
+          "fallback.btn": "فتح في علامة جديدة",
+          "fallback.close": "إغلاق",
+          "sidebar.menu": "القائمة",
+          "cat.webview": "🌐 منصات متوافقة مع WebView",
+          "cat.movies": "🎬 أفلام ومسلسلات",
+          "cat.anime": "🎌 أنمي",
+          "cat.manga": "📚 مانجا وقصص مصورة",
+          "cat.livetv": "📺 بث مباشر ورياضة",
+          "cat.paid": "💰 خدمات مدفوعة",
+          "cat.apps": "📱 تطبيقات",
+          "menu.profile": "تعديل الملف الشخصي",
+          "menu.settings": "الإعدادات",
+          "menu.contact": "تواصل معنا",
+          "menu.lang": "English",
+          "menu.warning": "دليل السلامة",
+          "menu.terms": "شروط الاستخدام",
+          "menu.privacy": "سياسة الخصوصية",
+          "menu.disclaimer": "إخلاء المسؤولية",
+          "menu.dmca": "سياسة DMCA",
+          "menu.logout": "تسجيل الخروج",
+          "footer": "© 2026 EGYSTAR · جميع الحقوق محفوظة",
+          "profile.title": "تعديل الملف الشخصي",
+          "profile.save": "حفظ التغييرات",
+          "social.title": "📱 تواصل معنا",
+          "badge.internal": "داخلي",
+          "badge.external": "خارجي"
+        }
+      };
+      
+      let currentLang = localStorage.getItem('egystar_lang') || 'en';
+      
+      function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('egystar_lang', lang);
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        
+        // Update all data-i18n elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (i18n[lang] && i18n[lang][key]) {
+            if (key.startsWith('agree.')) {
+              el.innerHTML = i18n[lang][key];
+            } else {
+              el.textContent = i18n[lang][key];
+            }
+          }
+        });
+        
+        // Update placeholders
+        const placeholders = {
+          'username': lang==='ar' ? 'اسم المستخدم' : 'Username',
+          'password': lang==='ar' ? 'كلمة المرور' : 'Password',
+          'profile-input': lang==='ar' ? 'الاسم المعروض' : 'Display Name'
+        };
+        Object.entries(placeholders).forEach(([id, ph]) => {
+          const el = document.getElementById(id);
+          if(el) el.placeholder = ph;
+        });
+        
+        // Update language button
+        const menuLang = document.querySelector('#menu-lang span');
+        if(menuLang) menuLang.textContent = lang==='ar' ? 'English' : 'العربية';
+        
+        // Update settings language select
+        const langSelect = document.getElementById('setting-language');
+        if(langSelect) langSelect.value = lang;
+        
+        // Re-render agree labels HTML
+        document.querySelectorAll('[data-i18n^="agree."]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if(i18n[lang][key]) el.innerHTML = i18n[lang][key];
+        });
+        
+        // Rebind modal triggers for agree labels
+        bindAgreeLinks();
+      }
+      
+      function applyInitialLang() { setLang(currentLang); }
+
+      // ---- SPLASH ----
+      const splash = document.getElementById('splash-screen');
+      const canvas = document.getElementById('splash-canvas');
+      const loginScreen = document.getElementById('login-screen');
+      const mainScreen = document.getElementById('main-screen');
+      let animFrame;
+      
+      function initSplashParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const count = 150;
+        for(let i=0; i<count; i++) {
+          particles.push({
+            x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+            r: Math.random()*2+0.5, dx: (Math.random()-0.5)*0.5, dy: (Math.random()-0.5)*0.5,
+            alpha: Math.random()*0.8+0.2
+          });
+        }
+        function draw() {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          particles.forEach(p => {
+            p.x += p.dx; p.y += p.dy;
+            if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+            if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle = `rgba(229,9,20,${p.alpha})`; ctx.fill();
+          });
+          animFrame = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+      
+      function showLogin() {
+        if(animFrame) cancelAnimationFrame(animFrame);
+        splash.classList.add('hide');
+        loginScreen.classList.remove('hidden');
+        mainScreen.classList.remove('active');
+      }
+      
+      splash.addEventListener('click', ()=> showLogin());
+      setTimeout(()=> { if(!splash.classList.contains('hide')) showLogin(); }, 4000);
+      initSplashParticles();
+
+      // ---- SESSION ----
+      const SESSION_KEY = 'egystar_auth';
+      function isLoggedIn() { return localStorage.getItem(SESSION_KEY)==='true'; }
+      function setLoggedIn(v) { v ? localStorage.setItem(SESSION_KEY,'true') : localStorage.removeItem(SESSION_KEY); }
+
+      // ---- CHECKBOXES ----
+      const checkIds = ['agree-terms','agree-privacy','agree-disclaimer','agree-cookies','agree-age','agree-dmca','agree-third'];
+      function allChecked() { return checkIds.every(id => document.getElementById(id)?.checked); }
+      function acceptAll() { checkIds.forEach(id => { const cb=document.getElementById(id); if(cb) cb.checked=true; }); }
+
+      // ---- LOGIN ----
+      document.getElementById('login-btn').addEventListener('click', ()=>{
+        const u = document.getElementById('username').value.trim();
+        const p = document.getElementById('password').value.trim();
+        const err = document.getElementById('login-error');
+        if(u!=='y244' || p!=='y4445') {
+          err.textContent = currentLang==='ar' ? 'بيانات الدخول غير صحيحة' : 'Invalid credentials';
+          err.style.display='block'; return;
+        }
+        if(!allChecked()) {
+          err.textContent = currentLang==='ar' ? 'يجب الموافقة على جميع الشروط' : 'Please accept all terms';
+          err.style.display='block'; return;
+        }
+        err.style.display='none';
+        setLoggedIn(true);
+        loginScreen.classList.add('hidden');
+        mainScreen.classList.add('active');
+        mainScreen.style.display='flex';
+        applyProfileName();
+      });
+      
+      document.getElementById('accept-all-btn').addEventListener('click', acceptAll);
+
+      // ---- LOGOUT ----
+      document.getElementById('logout-btn-menu').addEventListener('click', ()=>{
+        setLoggedIn(false);
+        loginScreen.classList.remove('hidden');
+        mainScreen.classList.remove('active');
+        mainScreen.style.display='none';
+        resetWebview();
+        document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+        document.getElementById('username').value='';
+        document.getElementById('password').value='';
+        document.getElementById('login-error').style.display='none';
+        closeSidebar();
+      });
+
+      // ---- SIDEBAR ----
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebar-overlay');
+      
+      function openSidebar() {
+        sidebar.classList.add('open');
+        setTimeout(()=> sidebarOverlay.classList.add('show'), 10);
+      }
+      
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('show');
+      }
+      
+      document.getElementById('menu-toggle').addEventListener('click', openSidebar);
+      document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+      sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // ---- MODALS ----
+      window.closeModal = function(id) {
+        const modal = document.getElementById(id);
+        if(modal) {
+          modal.classList.remove('show');
+          setTimeout(()=>{
+            modal.style.display = 'none';
+          }, 300);
+        }
+      };
+      
+      function openModal(id) {
+        const modal = document.getElementById(id);
+        if(modal) {
+          modal.style.display = 'flex';
+          // Force reflow
+          void modal.offsetWidth;
+          modal.classList.add('show');
+        }
+      }
+      
+      // Click outside to close
+      document.querySelectorAll('.modal-overlay').forEach(ov=>{
+        ov.addEventListener('click', function(e){
+          if(e.target===this) closeModal(this.id);
+        });
+      });
+      
+      // Bind agree label links
+      function bindAgreeLinks() {
+        document.querySelectorAll('.colored-link[data-modal]').forEach(link=>{
+          link.addEventListener('click', function(e){
+            e.preventDefault();
+            openModal(this.getAttribute('data-modal'));
+          });
+        });
+      }
+      bindAgreeLinks();
+      
+      // Menu item modals
+      document.getElementById('menu-terms')?.addEventListener('click', ()=>{ openModal('modal-terms'); closeSidebar(); });
+      document.getElementById('menu-privacy')?.addEventListener('click', ()=>{ openModal('modal-privacy'); closeSidebar(); });
+      document.getElementById('menu-disclaimer')?.addEventListener('click', ()=>{ openModal('modal-disclaimer'); closeSidebar(); });
+      document.getElementById('menu-dmca')?.addEventListener('click', ()=>{ openModal('modal-dmca'); closeSidebar(); });
+      document.getElementById('menu-warning')?.addEventListener('click', ()=>{ openModal('modal-warning'); closeSidebar(); });
+      document.getElementById('menu-settings')?.addEventListener('click', ()=>{ openModal('modal-settings'); closeSidebar(); });
+      document.getElementById('menu-contact')?.addEventListener('click', ()=>{ openModal('modal-contact'); closeSidebar(); });
+
+      // ---- PROFILE ----
+      const profileNameSpan = document.getElementById('profile-name');
+      const navProfileImg = document.getElementById('nav-profile-img');
+      const profilePreviewImg = document.getElementById('profile-preview-img');
+      
+      function applyProfileName() {
+        const profile = JSON.parse(localStorage.getItem('egystar_profile') || '{}');
+        profileNameSpan.textContent = profile.name || (currentLang==='ar' ? 'زائر' : 'Guest');
+        if(profile.image) {
+          navProfileImg.src = profile.image;
+          if(profilePreviewImg) profilePreviewImg.src = profile.image;
+        }
+      }
+      
+      // Profile image upload
+      document.getElementById('profile-image-upload')?.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if(file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            const imgData = ev.target.result;
+            navProfileImg.src = imgData;
+            if(profilePreviewImg) profilePreviewImg.src = imgData;
+            
+            // Save to profile
+            const profile = JSON.parse(localStorage.getItem('egystar_profile') || '{}');
+            profile.image = imgData;
+            localStorage.setItem('egystar_profile', JSON.stringify(profile));
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      document.getElementById('profile-btn').addEventListener('click', ()=>{
+        const profile = JSON.parse(localStorage.getItem('egystar_profile') || '{}');
+        document.getElementById('profile-input').value = profile.name || '';
+        if(profile.image && profilePreviewImg) profilePreviewImg.src = profile.image;
+        else if(profilePreviewImg) profilePreviewImg.src = navProfileImg.src;
+        openModal('modal-profile');
+      });
+      
+      document.getElementById('save-profile-btn').addEventListener('click', ()=>{
+        const name = document.getElementById('profile-input').value.trim();
+        const profile = JSON.parse(localStorage.getItem('egystar_profile') || '{}');
+        profile.name = name;
+        localStorage.setItem('egystar_profile', JSON.stringify(profile));
+        applyProfileName();
+        closeModal('modal-profile');
+      });
+      
+      document.getElementById('menu-profile')?.addEventListener('click', ()=>{
+        const profile = JSON.parse(localStorage.getItem('egystar_profile') || '{}');
+        document.getElementById('profile-input').value = profile.name || '';
+        if(profile.image && profilePreviewImg) profilePreviewImg.src = profile.image;
+        else if(profilePreviewImg) profilePreviewImg.src = navProfileImg.src;
+        openModal('modal-profile');
+        closeSidebar();
+      });
+
+      // ---- LANGUAGE TOGGLE ----
+      document.getElementById('menu-lang').addEventListener('click', ()=>{
+        const newLang = currentLang==='ar' ? 'en' : 'ar';
+        setLang(newLang);
+        closeSidebar();
+        applyProfileName();
+      });
+
+      // ---- SETTINGS ----
+      document.getElementById('setting-language')?.addEventListener('change', function() {
+        setLang(this.value);
+      });
+      
+      document.getElementById('clear-data-btn')?.addEventListener('click', () => {
+        if(confirm(currentLang==='ar' ? 'هل أنت متأكد من حذف جميع البيانات؟' : 'Are you sure you want to clear all data?')) {
+          localStorage.clear();
+          location.reload();
+        }
+      });
+
+      // ---- WEBVIEW & PLATFORMS ----
+      const contentFrame = document.getElementById('content-frame');
+      const fallbackOverlay = document.getElementById('fallback-overlay');
+      let currentFallbackUrl = '';
+      let currentSiteUrl = '';
+      
+      function resetWebview() {
+        contentFrame.style.display='none';
+        contentFrame.src='';
+        fallbackOverlay.classList.remove('show');
+        currentFallbackUrl='';
+        currentSiteUrl='';
+      }
+      
+      function loadInWebview(url, siteName) {
+        resetWebview();
+        currentSiteUrl = url;
+        contentFrame.src = url;
+        contentFrame.style.display='block';
+        
+        // Error handling with timeout
+        let loaded = false;
+        let timeoutId = setTimeout(() => {
+          if(!loaded && contentFrame.src === url) {
+            showFallback(url);
+          }
+        }, 5000);
+        
+        contentFrame.onload = () => {
+          loaded = true;
+          clearTimeout(timeoutId);
+          try {
+            // Check if frame loaded successfully
+            if(contentFrame.contentWindow) {
+              // Frame seems OK
+            }
+          } catch(e) {
+            // Cross-origin error is normal, frame might still work
+          }
+        };
+        
+        contentFrame.onerror = () => {
+          loaded = true;
+          clearTimeout(timeoutId);
+          showFallback(url);
+        };
+      }
+      
+      function showFallback(url) {
+        if(contentFrame.src === url || currentSiteUrl === url) {
+          contentFrame.style.display='none';
+          fallbackOverlay.classList.add('show');
+          currentFallbackUrl = url;
+        }
+      }
+      
+      document.getElementById('fallback-open-btn').addEventListener('click', ()=>{
+        if(currentFallbackUrl || currentSiteUrl) {
+          window.open(currentFallbackUrl || currentSiteUrl, '_blank');
+        }
+      });
+      
+      document.getElementById('fallback-close-btn').addEventListener('click', ()=>{
+        fallbackOverlay.classList.remove('show');
+        currentFallbackUrl='';
+        resetWebview();
+      });
+
+      // ---- FAVICON & PLATFORM CARDS ----
+      function getFaviconUrl(domain) {
+        try {
+          const urlObj = new URL(domain);
+          return `https://www.google.com/s2/favicons?sz=64&domain_url=${urlObj.hostname}`;
+        } catch(e) {
+          return `https://www.google.com/s2/favicons?sz=64&domain_url=${domain}`;
+        }
+      }
+      
+      // Track which sites support internal vs external opening
+      const webViewCompatibleSites = new Set([
+        'youtube.com', 'wikipedia.org', 'google.com', 'bing.com', 'duckduckgo.com'
+      ]);
+      
+      function isWebViewCompatible(url) {
+        try {
+          const hostname = new URL(url).hostname.replace('www.', '');
+          return webViewCompatibleSites.has(hostname) || 
+                 hostname.includes('google') || 
+                 hostname.includes('wikipedia');
+        } catch(e) {
+          return false;
+        }
+      }
+      
+      function createPlatformCard(site, containerId) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        
+        const card = document.createElement('div');
+        card.className = 'platform-card';
+        
+        const internal = isWebViewCompatible(site.url);
+        const badgeClass = internal ? 'badge-internal' : 'badge-external';
+        const badgeText = internal ? 
+          (currentLang==='ar' ? 'داخلي' : 'IN') : 
+          (currentLang==='ar' ? 'خارجي' : 'EX');
+        
+        card.innerHTML = `
+          <span class="badge ${badgeClass}">${badgeText}</span>
+          <img class="favicon" src="${getFaviconUrl(site.url)}" alt="${site.name}" loading="lazy">
+          <span class="name">${site.name}</span>
+        `;
+        
+        // Handle favicon error
+        const img = card.querySelector('.favicon');
+        img.onerror = function() {
+          this.style.display = 'none';
+          // Create text fallback
+          const textIcon = document.createElement('div');
+          textIcon.style.cssText = 'width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#e50914,#b00710);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;margin-bottom:4px;';
+          textIcon.textContent = site.name.charAt(0).toUpperCase();
+          this.parentNode.insertBefore(textIcon, this.nextSibling);
+        };
+        
+        card.addEventListener('click', (e) => {
+          // Check if clicked on badge for external open
+          if(e.target.classList.contains('badge') && !internal) {
+            window.open(site.url, '_blank');
+            return;
+          }
+          
+          if(internal) {
+            loadInWebview(site.url, site.name);
+            closeSidebar();
+          } else {
+            // Try webview first
+            loadInWebview(site.url, site.name);
+            closeSidebar();
+          }
+        });
+        
+        // Long press or right-click for external open on mobile
+        let pressTimer;
+        card.addEventListener('touchstart', (e) => {
+          pressTimer = setTimeout(() => {
+            window.open(site.url, '_blank');
+          }, 800);
+        });
+        card.addEventListener('touchend', () => {
+          clearTimeout(pressTimer);
+        });
+        card.addEventListener('touchmove', () => {
+          clearTimeout(pressTimer);
+        });
+        
+        container.appendChild(card);
+      }
+
+      // Platform Data
+      const platforms = {
+        webview: [
+          {name:'YouTube',url:'https://www.youtube.com'},
+          {name:'Wikipedia',url:'https://www.wikipedia.org'},
+          {name:'Google Safe',url:'https://www.google.com/webhp?igu=1'},
+          {name:'Bing',url:'https://www.bing.com'},
+          {name:'DuckDuckGo',url:'https://duckduckgo.com'}
+        ],
+        movies: [
+          {name:'1Shows',url:'https://1shows.org'},{name:'1Flex',url:'https://1flex.org'},{name:'RgShows',url:'https://rgshows.ru'},
+          {name:'AlienFlix',url:'https://alienflix.net'},{name:'FlickyStream',url:'https://flickystream.ru'},
+          {name:'Wooflix',url:'https://cinebytv.com'},{name:'RiveStream',url:'https://rivestream.org'},
+          {name:'CinemaBZ',url:'https://cinema.bz'},{name:'Spenflix',url:'https://spencerdevs.xyz'},
+          {name:'FilmCave',url:'https://filmcave.ru'},{name:'Corsflix',url:'https://corsflix.net'},
+          {name:'Cinegram',url:'https://cinegram.net'},{name:'Bcine',url:'https://bcine.app'},
+          {name:'StreamX',url:'https://streamex.net'},{name:'Cinezo',url:'https://cinezo.net'},
+          {name:'Cineby',url:'https://cineby.gd'},{name:'Donkey',url:'https://donkey.to'},
+          {name:'Willow',url:'https://willow.arlen.icu'},{name:'SFlix',url:'https://sflix.fi'},
+          {name:'Nepu',url:'https://nepu.to'},{name:'FMovies',url:'https://fmovies-hd.to'},
+          {name:'67Movies',url:'https://67movies.net'},{name:'Xprime',url:'https://xprime.stream'},
+          {name:'SmashyStream',url:'https://smashystream.xyz'},{name:'Flixway',url:'https://flixway.pro'}
+        ],
+        anime: [
+          {name:'Anikage',url:'https://anikage.cc'},{name:'AniDap',url:'https://anidap.se'},
+          {name:'Animex',url:'https://animex.one'},{name:'Anime Nexus',url:'https://anime.nexus'},
+          {name:'1Anime',url:'https://1anime.app'},{name:'Enma',url:'https://enma.lol'},
+          {name:'Miruro',url:'https://miruro.to'},{name:'yenime',url:'https://yenime.net'},
+          {name:'Anistream',url:'https://anistream.one'},{name:'animepahe',url:'https://animepahe.pw'},
+          {name:'Animetsu',url:'https://animetsu.bz'},{name:'KickAssAnime',url:'https://kaa.to'},
+          {name:'AnimeKai',url:'https://animekai.to'},{name:'FAnime',url:'https://fanime.tv'},
+          {name:'HiAnime',url:'https://hianime.cv'}
+        ],
+        manga: [
+          {name:'MangaBall',url:'https://mangaball.net'},{name:'Atsu',url:'https://atsu.moe'},
+          {name:'Kagane',url:'https://kagane.org'},{name:'Onisaga',url:'https://onisaga.com'},
+          {name:'Comick',url:'https://comick.dev'},{name:'Comix',url:'https://comix.to'},
+          {name:'Qtoon',url:'https://qtoon.net'},{name:'MangaDex',url:'https://mangadex.org'},
+          {name:'Mangago',url:'https://mangago.me'},{name:'MangaFire',url:'https://mangafire.to'},
+          {name:'AllManga',url:'https://allmanga.to'},{name:'MangaKakalot',url:'https://mangakakalot.gg'},
+          {name:'AsuraComic',url:'https://asuracomic.net'},{name:'ReadComicOnline',url:'https://readcomiconline.li'},
+          {name:'MangaHub',url:'https://mangahub.io'},{name:'WeebCentral',url:'https://weebcentral.com'},
+          {name:'MangaKatana',url:'https://mangakatana.com'},{name:'AnimeZ',url:'https://likemanga.ink'}
+        ],
+        livetv: [
+          {name:'TheTVApp',url:'https://thetvapp.to'},{name:'TV247',url:'https://tv247.us'},
+          {name:'TheDaddy',url:'https://dlhd.dad'},{name:'DaddyHD',url:'https://daddylive.pw'},
+          {name:'NTVStream',url:'https://ntvstream.cx'},{name:'PublicIPTV',url:'https://publiciptv.com'},
+          {name:'Sport+',url:'https://sportplus.live'},{name:'StreamEast',url:'https://xstreameast.com'},
+          {name:'iStreamEast',url:'https://istreameast.app'},{name:'SportSurge',url:'https://sportsurge.net'},
+          {name:'TV Garden',url:'https://tv.garden'},{name:'TOTV',url:'https://totv.org'},
+          {name:'RiveStream Sports',url:'https://rivestream.org'},{name:'Sportsbite',url:'https://moviebite.cc'},
+          {name:'GlobeTV',url:'https://globetv.app'}
+        ],
+        paid: [
+          {name:'Disney+',url:'https://disneyplus.com'},{name:'Shudder',url:'https://shudder.com'},
+          {name:'Hulu',url:'https://hulu.com'},{name:'Netflix',url:'https://netflix.com'},
+          {name:'Viki',url:'https://viki.com'},{name:'MAX',url:'https://max.com'},
+          {name:'Apple TV+',url:'https://apple.com'},{name:'Amazon Prime',url:'https://amazon.com'},
+          {name:'Paramount+',url:'https://paramountplus.com'},{name:'Crunchyroll',url:'https://crunchyroll.com'},
+          {name:'MGM+',url:'https://mgmplus.com'},{name:'Peacock',url:'https://peacocktv.com'},
+          {name:'AMC+',url:'https://amcplus.com'}
+        ],
+        apps: [
+          {name:'Playtorrio',url:'https://playtorrio.pages.dev'},{name:'OnStream APKs',url:'https://onstreamapks.app'},
+          {name:'HDO Box',url:'https://hdobox.net'},{name:'BeeTV',url:'https://beetv.download'},
+          {name:'MovieBox',url:'https://moviesbox.com.co'},{name:'NetMirror',url:'https://netmirror.gg'},
+          {name:'PikaShow',url:'https://pikashowtv.in'}
+        ]
+      };
+
+      // Social Links Data
+      const socialLinks = [
+        {name:'WhatsApp', icon:'fab fa-whatsapp', url:'https://wa.me/201090672451', class:'social-whatsapp', sub:'Chat'},
+        {name:'Telegram', icon:'fab fa-telegram', url:'https://t.me/yousef_eltoor', class:'social-telegram', sub:'Message'},
+        {name:'Facebook', icon:'fab fa-facebook-f', url:'https://www.facebook.com/profile.php?id=100075191455647', class:'social-facebook', sub:'Follow'},
+        {name:'Instagram', icon:'fab fa-instagram', url:'https://www.instagram.com/yousef_eltoor/', class:'social-instagram', sub:'Follow'},
+        {name:'Threads', icon:'fab fa-threads', url:'https://www.threads.com/@yousef_eltoor', class:'social-threads', sub:'Follow'},
+        {name:'X/Twitter', icon:'fab fa-x-twitter', url:'https://x.com/Yousef_eltoor', class:'social-x', sub:'Follow'},
+        {name:'PUBG', icon:'fas fa-crosshairs', url:'#', class:'social-pubg', sub:'ID: 51899792917'},
+        {name:'Pinterest', icon:'fab fa-pinterest', url:'https://www.pinterest.com/yousefeltoor123/', class:'social-pinterest', sub:'Follow'},
+        {name:'Kick', icon:'fas fa-video', url:'https://kick.com/IlBotRix', class:'social-kick', sub:'Watch'},
+        {name:'TikTok', icon:'fab fa-tiktok', url:'https://www.tiktok.com/@yousef1eltoor/', class:'social-tiktok', sub:'Follow'}
+      ];
+
+      // Populate platform grids
+      Object.entries(platforms).forEach(([key, sites]) => {
+        const containerId = key + (key === 'webview' ? '-platforms' : '-list');
+        sites.forEach(site => createPlatformCard(site, containerId));
+      });
+
+      // Populate social links
+      function createSocialBtn(social, containerId) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        
+        const btn = document.createElement('div');
+        btn.className = `social-btn ${social.class}`;
+        btn.innerHTML = `<i class="${social.icon}"></i><span>${social.sub}</span>`;
+        btn.addEventListener('click', () => {
+          if(social.url !== '#') window.open(social.url, '_blank');
+        });
+        container.appendChild(btn);
+      }
+      
+      socialLinks.forEach(s => {
+        createSocialBtn(s, 'social-links-grid');
+        createSocialBtn(s, 'contact-social-grid');
+      });
+
+      // ---- FIT / ROTATE / FULLSCREEN ----
+      const webviewInner = document.getElementById('webview-inner');
+      let fitMode = 'contain';
+      let rotated = false;
+      
+      document.getElementById('btn-fit').addEventListener('click', ()=>{
+        if(fitMode==='contain') {
+          fitMode='cover'; webviewInner.classList.add('cover');
+        } else {
+          fitMode='contain'; webviewInner.classList.remove('cover');
+        }
+      });
+      
+      document.getElementById('btn-rotate').addEventListener('click', ()=>{
+        rotated = !rotated;
+        webviewInner.classList.toggle('rotated', rotated);
+      });
+      
+      document.getElementById('btn-fullscreen').addEventListener('click', ()=>{
+        const el = document.getElementById('webview-wrapper');
+        if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+        else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      });
+
+      // ---- INIT ----
+      applyInitialLang();
+      applyProfileName();
+      
+      if(isLoggedIn()) {
+        splash.classList.add('hide');
+        loginScreen.classList.add('hidden');
+        mainScreen.classList.add('active');
+        mainScreen.style.display='flex';
+      } else {
+        loginScreen.classList.remove('hidden');
+      }
+
+      // Prevent zoom on double tap
+      document.addEventListener('touchstart', (e) => { 
+        if(e.touches.length > 1) e.preventDefault(); 
+      }, {passive:false});
+      
+    })();
+  </script>
+</body>
+</html>
+    <script></script>
+</body>
+</html>
